@@ -1,0 +1,41 @@
+name: "CF CLI Plugin Action"
+description: "Deploy and manage Cloud Foundry services (including plugins e.g. for zero-downtime deployment)"
+branding:
+  icon: "upload-cloud"
+  color: "blue"
+inputs:
+  cf_api:
+    description: "API Endpoint of Cloud Foundry"
+    required: true
+  cf_username:
+    description: "Username for API authentication"
+    required: true
+  cf_password:
+    description: "Password for API authentication"
+    required: true
+  cf_org:
+    description: "Target Organization"
+    required: false
+  cf_space:
+    description: "Target Space"
+    required: false
+  cf_plugin:
+    description: "Community plugin to be installed"
+    required: false
+  cf_app:
+    description: "App that is being changed"
+    required: false
+  cf_routes:
+    description: "Routes for app that is being changed"
+    required: false
+  command:
+    description: "Command to run using CF CLI"
+    required: true
+  arguments:
+    description: "Arguments for the command to run"
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.arguments }}
