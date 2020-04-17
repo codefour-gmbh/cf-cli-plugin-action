@@ -1,5 +1,7 @@
 #!/bin/bash -l
 
+set -e
+
 cf api "$INPUT_CF_API"
 
 AUTH_WAIT_TIME=0
