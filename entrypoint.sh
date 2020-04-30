@@ -32,17 +32,17 @@ if [ -n "$INPUT_COMMAND" ] && [[ "$INPUT_COMMAND" == "zero-downtime-push" ]]; th
 	# sh -c "cf $INPUT_COMMAND $* --route-only"
 	# INSTEAD WE WILL TRY TO FIX THIS MANUALLY AT THE END :/
 	sh -c "cf $INPUT_COMMAND $*"
-	if [ -n "$INPUT_CF_APP" ] && [ -n "$INPUT_CF_ROUTES" ]; then
-		export IFS=","
-		REQ_ROUTES=($(echo "${INPUT_CF_ROUTES}"))
-		ALL_ROUTES=($(cf app "$INPUT_CF_APP" | grep 'routes: ' | sed "s#routes: ##g" | sed "s# ##g"))
-		for REQ_ROUTE in ${REQ_ROUTES[@]}; do
-			if [[ ${ALL_ROUTES} != *"${REQ_ROUTE}"* ]]; then
-				echo "Could not find route: '${REQ_ROUTE}' in app '${INPUT_CF_APP}'"
-				cf map-route "$INPUT_CF_APP" "$REQ_ROUTE" || echo "Warning: Failed route mapping '${REQ_ROUTE}' (ignore FAILURE)"
-			fi
-		done
-	fi
+	# if [ -n "$INPUT_CF_APP" ] && [ -n "$INPUT_CF_ROUTES" ]; then
+	# 	export IFS=","
+	# 	REQ_ROUTES=($(echo "${INPUT_CF_ROUTES}"))
+	# 	ALL_ROUTES=($(cf app "$INPUT_CF_APP" | grep 'routes: ' | sed "s#routes: ##g" | sed "s# ##g"))
+	# 	for REQ_ROUTE in ${REQ_ROUTES[@]}; do
+	# 		if [[ ${ALL_ROUTES} != *"${REQ_ROUTE}"* ]]; then
+	# 			echo "Could not find route: '${REQ_ROUTE}' in app '${INPUT_CF_APP}'"
+	# 			cf map-route "$INPUT_CF_APP" "$REQ_ROUTE" || echo "Warning: Failed route mapping '${REQ_ROUTE}' (ignore FAILURE)"
+	# 		fi
+	# 	done
+	# fi
 else
 	sh -c "cf $INPUT_COMMAND $*"
 fi
