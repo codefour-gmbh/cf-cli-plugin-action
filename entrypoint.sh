@@ -17,10 +17,11 @@ fi
 if [ -n "$INPUT_CF_PLUGIN" ]; then
 	cf plugins
 
-	cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
-	cf install-plugin -f -r CF-Community "$INPUT_CF_PLUGIN"
+	# cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
+	# cf install-plugin -f -r CF-Community "$INPUT_CF_PLUGIN"
 
-	# cf install-plugin -f /cf-puppeteer-linux
+	# testing pre-release version 1.2.1
+	cf install-plugin -f /cf-puppeteer-linux
 
 	cf plugins
 fi
