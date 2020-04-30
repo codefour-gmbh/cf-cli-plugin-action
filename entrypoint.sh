@@ -39,7 +39,7 @@ if [ -n "$INPUT_COMMAND" ] && [[ "$INPUT_COMMAND" == "zero-downtime-push" ]]; th
 		for REQ_ROUTE in ${REQ_ROUTES[@]}; do
 			if [[ ${ALL_ROUTES} != *"${REQ_ROUTE}"* ]]; then
 				echo "Could not find route: '${REQ_ROUTE}' in app '${INPUT_CF_APP}'"
-				cf map-route "$INPUT_CF_APP" "$REQ_ROUTE"
+				cf map-route "$INPUT_CF_APP" "$REQ_ROUTE" || echo "Warning: Failed route mapping '${REQ_ROUTE}' (ignore FAILURE)"
 			fi
 		done
 	fi
